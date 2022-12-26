@@ -4,6 +4,7 @@ import com.codegym.model.Account;
 import com.codegym.model.AppUser;
 import com.codegym.model.Role;
 import com.codegym.repository.IAccountRepo;
+import com.codegym.repository.IAppUserRepo;
 import com.codegym.service.appUserService.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +25,7 @@ public class AccountService implements IAccountService {
     @Autowired
     IAccountRepo accountRepo;
     @Autowired
-    IAppUserService appUserService;
+    IAppUserRepo iAppUserRepo;
 
     @Override
     public List<Account> findAll() {
@@ -42,13 +44,14 @@ public class AccountService implements IAccountService {
         boolean check = accountRepo.existsAccountByUsernameOrEmail(account.getUsername(), account.getEmail());
         if (!check) {
             accountRepo.save(account);
-            AppUser newUser = AppUser.builder()
-                    .account(findByUserName(account.getUsername()))
-                    .status(NOT_VERIFIED)
-                    .displayName("Nana")
-                    .build();
+            AppUser newUser = new AppUser();
+            newUser.setAccount(account);
+            newUser.setAddress("Ha Giang");
             newUser.setEmail(account.getEmail());
-            appUserService.save(newUser);
+            newUser.setBGImage("https://image.thanhnien.vn/w1024/Uploaded/2022/hgnatm/2022_09_22/yamaha-r152-3948.jpg");
+            newUser.setAboutMe("Cute");
+            newUser.setDisplayName(account.getUsername());
+            iAppUserRepo.save(newUser);
             //accountRepo.save(account);
             return true;
         }
