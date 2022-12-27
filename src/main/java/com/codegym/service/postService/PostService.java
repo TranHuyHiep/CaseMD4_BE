@@ -41,4 +41,8 @@ public class PostService implements IPostService{
     public Post findById(Long id) {
         return iPostRepo.findById(id).get();
     }
+
+    public List<Post> findAllByAppUserId(Long id){
+        return iPostRepo.findAllByAppUserId(id);
+    }
 }

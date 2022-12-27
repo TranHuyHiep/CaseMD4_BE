@@ -34,4 +34,13 @@ public class LikeService implements ILikeService{
     public Likes findById(Long id) {
         return iLikeRepo.findById(id).get();
     }
+
+    @Override
+    public boolean findByIdAndPost(Long id, Long post){
+        Likes k = iLikeRepo.findByIdAndPost(id, post);
+       if(k != null){
+           return true;
+       }
+       return false;
+    }
 }

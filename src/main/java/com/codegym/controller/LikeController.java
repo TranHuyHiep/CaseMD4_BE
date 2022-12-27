@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+import com.codegym.model.Account;
 import com.codegym.model.Comment;
 import com.codegym.model.Likes;
 import com.codegym.model.Post;
@@ -22,7 +23,17 @@ public class  LikeController {
     private IPostService iPostService;
     @Autowired
     private ICommentService iCommentService;
-
+//    @GetMapping("/{id}/{post}")
+//    public ResponseEntity<?> findLikeByAccountAndPost(@PathVariable  Long id, @PathVariable Long post){
+//        boolean flag = iLikeService.findByIdAndPost(id, post);
+//        if(flag){
+//            createLike(Likes newLike);
+//        }else {
+//
+//        }
+//
+//
+//    }
     @PostMapping
     public ResponseEntity<?> createLike(@RequestBody Likes newLike){
         if(newLike.getPost() != null) {
