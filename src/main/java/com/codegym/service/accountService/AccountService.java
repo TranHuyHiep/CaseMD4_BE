@@ -67,7 +67,6 @@ public class AccountService implements IAccountService {
     @Override
     public Account findById(Long id) {
         Optional<Account> account = accountRepo.findById(id);
-        boolean c = account.isPresent();
         return account.get();
     }
 
