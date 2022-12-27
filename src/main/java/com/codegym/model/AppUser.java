@@ -42,13 +42,6 @@ public class AppUser {
             nullable = false, updatable = false)
     private Account account;
 
-    @OneToMany
-    private Set<AppUser> friends;
-    @OneToMany
-    private Set<AppUser> friendRequest;
-    @OneToMany
-    private Set<AppUser> blocked;
-
     public Long getId() {
         return id;
     }
