@@ -30,4 +30,6 @@ public class RelationTypeService implements IRelationTypeService{
     public RelationType findById(Long id) {
         return relationTypeRepo.findById(id).orElse(null);
     }
+
+
 }
