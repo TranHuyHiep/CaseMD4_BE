@@ -24,6 +24,10 @@ public class RelationshipService implements IRelationshipService {
 
     @Override
     public boolean delete(Long id) {
+        if(relationshipRepo.findById(id) != null) {
+            relationshipRepo.deleteById(id);
+            return true;
+        }
         return false;
     }
 
@@ -50,6 +54,6 @@ public class RelationshipService implements IRelationshipService {
 
     @Override
     public void acceptFriendRequest(Long userId, Long targetId) {
-
+        relationshipRepo.changeFriend(findByUserAndTarget(userId, targetId).getId());
     }
 }

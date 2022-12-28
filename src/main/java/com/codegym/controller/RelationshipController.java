@@ -37,13 +37,17 @@ public class RelationshipController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/cancelFriendRequest")
-    public ResponseEntity<Relationship> cancelFriendRequest() {
+    @PostMapping("/cancelFriendRequest/{userId}/{targetId}")
+    public ResponseEntity<Relationship> cancelFriendRequest(@PathVariable Long userId,
+                                                            @PathVariable Long targetId) {
+        relationshipService.delete(relationshipService.findByUserAndTarget(userId, targetId).getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/acceptFriendRequest")
-    public ResponseEntity<Relationship> acceptFriendRequest() {
+    @PostMapping("/acceptFriendRequest/{userId}/{targetId}")
+    public ResponseEntity<Relationship> acceptFriendRequest(@PathVariable Long userId,
+                                                            @PathVariable Long targetId) {
+        relationshipService.acceptFriendRequest(userId, targetId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
