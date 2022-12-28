@@ -52,13 +52,13 @@ public class AccountService implements IAccountService {
 
             AppUser newUser = new AppUser();
             newUser.setAccount(account);
-            newUser.setBGImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwxK-xA3172T2FLzdwm1YjDK2X_r49wNVcw&usqp=CAU");
+            newUser.setBGImage("member-9.png");
             newUser.setDOB(LocalDate.now());
             newUser.setAboutMe("HipCG");
             newUser.setDisplayName("Hip Chan");
             newUser.setEmail(account.getEmail());
             newUser.setGender("Male");
-            newUser.setImage("https://static2.yan.vn/YanNews/202105/202105170329163774-0f5aef49-3c30-420b-8ccd-b983d0d3553a.jpeg");
+            newUser.setImage("cover.png");
             newUser.setPhoneNumber("19001001");
             newUser.setStatus("active");
             newUser.setAddress("Ha Giang");
