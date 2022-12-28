@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LikeService implements ILikeService{
@@ -36,11 +37,11 @@ public class LikeService implements ILikeService{
     }
 
     @Override
-    public boolean findByIdAndPost(Long id, Long post){
-        Likes k = iLikeRepo.findByIdAndPost(id, post);
-       if(k != null){
-           return true;
+    public Optional<Likes> findByIdAndPost(Long id, Long post){
+        Optional<Likes> k = iLikeRepo.findByAppUserAndPost(id, post);
+       if(k.isPresent()){
+           return k;
        }
-       return false;
+       return Optional.empty();
     }
 }

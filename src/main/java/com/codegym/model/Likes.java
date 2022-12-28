@@ -24,4 +24,8 @@ public class Likes {
     @ManyToOne(fetch = FetchType.LAZY)
     private Comment cmt;
 
+    public Likes(Post post, AppUser appUser) {
+        this.post = post;
+        this.appUser = appUser;
+    }
 }

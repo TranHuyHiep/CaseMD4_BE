@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @CrossOrigin("*")
 @RequestMapping("/likes")
@@ -23,45 +25,36 @@ public class  LikeController {
     private IPostService iPostService;
     @Autowired
     private ICommentService iCommentService;
-//    @GetMapping("/{id}/{post}")
-//    public ResponseEntity<?> findLikeByAccountAndPost(@PathVariable  Long id, @PathVariable Long post){
-//        boolean flag = iLikeService.findByIdAndPost(id, post);
-//        if(flag){
-//            createLike(Likes newLike);
-//        }else {
-//
-//        }
-//
-//
-//    }
-    @PostMapping
-    public ResponseEntity<?> createLike(@RequestBody Likes newLike){
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAll(){
+        return new ResponseEntity<>(iLikeService.findAll(), HttpStatus.OK);
+    }
+    @PostMapping("")
+    public ResponseEntity<?> findLikeByAccountAndPost(@RequestBody Likes like){
+        Optional<Likes> flag = iLikeService.findByIdAndPost(like.getAppUser().getId(), like.getPost().getId());
+        if(flag.isPresent()){
+            deletdLike(flag.get().getId());
+        }else {
+              createLike(like);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    public void createLike(Likes newLike){
         if(newLike.getPost() != null) {
             Post post = iPostService.findById(newLike.getPost().getId());
-            if (post == null) {
-                return new ResponseEntity<>("Post not found", HttpStatus.NOT_FOUND);
-            }
             post.setLikeCount(post.getLikeCount() + 1);
             iPostService.save(post);
         }
         else {
             Comment comment = iCommentService.findById(newLike.getCmt().getId());
-            if (comment == null) {
-                return new ResponseEntity<>("Comment not found", HttpStatus.NOT_FOUND);
-            }
             comment.setLikeCount(comment.getLikeCount() + 1);
             iCommentService.save(comment);
         }
-        return new ResponseEntity<>(iLikeService.save(newLike), HttpStatus.CREATED);
-
+        iLikeService.save(newLike);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletdLike(@PathVariable Long id){
+    public void deletdLike(Long id){
         Likes like = iLikeService.findById(id);
-        if(like == null){
-            return new ResponseEntity<>("Like not found", HttpStatus.NOT_FOUND);
-        }
         if (like.getPost() != null) {
             Post post = iPostService.findById(like.getPost().getId());
             post.setLikeCount(post.getLikeCount() - 1);
@@ -72,6 +65,6 @@ public class  LikeController {
             comment.setLikeCount(comment.getLikeCount() - 1);
             iCommentService.save(comment);
         }
-        return new ResponseEntity<>(iLikeService.delete(id), HttpStatus.OK);
+      iLikeService.delete(id);
     }
 }
