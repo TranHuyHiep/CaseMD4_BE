@@ -53,4 +53,13 @@ public class PostController {
         postService.delete(id);
         return new ResponseEntity<String>("Deleted!", HttpStatus.OK);
     }
+    /* ---------------- GET POST BY ACCOUNT ------------------------ */
+    @RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getPostByAccount(@PathVariable Long id) {
+        List<Post> post = postService.findAllByAppUserId(id);
+        if (post.size() != 0) {
+            return new ResponseEntity<>(post, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Not Found Post", HttpStatus.NO_CONTENT);
+    }
 }
