@@ -43,13 +43,6 @@ public class AccountService implements IAccountService {
         boolean check = accountRepo.existsAccountByUsernameOrEmail(account.getUsername(), account.getEmail());
         if (!check) {
             accountRepo.save(account);
-//            AppUser newUser = AppUser.builder()
-//                    .account(findByUserName(account.getUsername()))
-//                    .status(NOT_VERIFIED)
-//                    .displayName("Nana")
-//                    .build();
-//            newUser.setEmail(account.getEmail());
-
             AppUser newUser = new AppUser();
             newUser.setAccount(account);
             newUser.setBGImage("member-9.png");
