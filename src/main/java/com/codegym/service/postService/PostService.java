@@ -3,6 +3,7 @@ package com.codegym.service.postService;
 import com.codegym.model.Post;
 import com.codegym.repository.IPostRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,5 +45,8 @@ public class PostService implements IPostService{
 
     public List<Post> findAllByAppUserId(Long id){
         return iPostRepo.findAllByAppUserId(id);
+    }
+    public List<Post> findAllPostFriend(Long id){
+        return iPostRepo.findAllPostFriend(id);
     }
 }
