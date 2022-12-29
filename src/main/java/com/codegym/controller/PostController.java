@@ -24,7 +24,7 @@ public class PostController {
     private PostService postService;
 
     /* ---------------- GET ALL Post ------------------------ */
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public ResponseEntity<List<Post>> getAllPost() {
         List<Post> list = postService.findAll();
         return new ResponseEntity<>(list, HttpStatus.OK);
@@ -56,6 +56,17 @@ public class PostController {
     /* ---------------- GET POST BY ACCOUNT ------------------------ */
     @RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getPostByAccount(@PathVariable Long id) {
+        List<Post> post = postService.findAllByAppUserId(id);
+        if (post.size() != 0) {
+            return new ResponseEntity<>(post, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Not Found Post", HttpStatus.NO_CONTENT);
+    }
+
+    /* ---------------- GET POST FRIEND ------------------------ */
+    @RequestMapping(value = "/home/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getPostFriend(@PathVariable Long id) {
+//        Long id = 1l;
         List<Post> post = postService.findAllByAppUserId(id);
         if (post.size() != 0) {
             return new ResponseEntity<>(post, HttpStatus.OK);
