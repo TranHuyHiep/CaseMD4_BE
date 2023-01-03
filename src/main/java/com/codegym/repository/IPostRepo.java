@@ -12,7 +12,7 @@ import java.util.List;
 public interface IPostRepo extends JpaRepository<Post, Long> {
     public List<Post> findAllByAppUserId(Long id);
 
-    @Query(value = "select id, cmt_count, content, like_count, time, app_user_id, friend_id from post inner join app_user_friends on post.app_user_id = app_user_friends.app_user_id \n" +
+    @Query(value = "select * from post inner join app_user_friends on post.app_user_id = app_user_friends.app_user_id \n" +
             "where post.app_user_id = ?1 or friends_id = ?1 order by time", nativeQuery = true)
     public List<Post> findAllPostFriend(Long id);
 }

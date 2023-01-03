@@ -67,7 +67,7 @@ public class PostController {
     @RequestMapping(value = "/home/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getPostFriend(@PathVariable Long id) {
 //        Long id = 1l;
-        List<Post> post = postService.findAllByAppUserId(id);
+        List<Post> post = postService.findAllPostFriend(id);
         if (post.size() != 0) {
             return new ResponseEntity<>(post, HttpStatus.OK);
         }
