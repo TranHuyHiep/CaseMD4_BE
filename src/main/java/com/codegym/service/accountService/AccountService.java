@@ -48,7 +48,7 @@ public class AccountService implements IAccountService {
             newUser.setBGImage("member-9.png");
             newUser.setDOB(LocalDate.now());
             newUser.setAboutMe("HipCG");
-            newUser.setDisplayName("Hip Chan");
+            newUser.setDisplayName(account.getUsername());
             newUser.setEmail(account.getEmail());
             newUser.setGender("Male");
             newUser.setImage("cover.png");
@@ -56,7 +56,7 @@ public class AccountService implements IAccountService {
             newUser.setStatus("active");
             newUser.setAddress("Ha Giang");
             appUserService.save(newUser);
-            //accountRepo.save(account);
+//            accountRepo.save(account);
             return true;
         }
         return false;

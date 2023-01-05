@@ -57,7 +57,7 @@ public class AccountController {
         account.setRoles(setRole);
 
         if (accountService.save(account)) {
-            return new ResponseEntity<String>("Created!", HttpStatus.CREATED);
+            return new ResponseEntity<String>("Created!", HttpStatus.OK);
         } else {
             return new ResponseEntity<String>("Username or email Existed!", HttpStatus.BAD_REQUEST);
         }

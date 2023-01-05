@@ -22,7 +22,7 @@ public class AppUser {
     @Column(name = "id", nullable = false)
     private long id;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(nullable = false, length = 50)
     private String displayName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
